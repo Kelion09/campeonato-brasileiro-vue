@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="app-top-bar">
     <h2 class="text-h5 text-center mb-3 mt-5">
       Classificação
     </h2>
@@ -23,14 +23,11 @@
             <td>{{ index + 1 }}</td>
             <td>
               <v-avatar size="24">
-                <img
-                  :src= "clube.escudo"
-                  :alt= "clube.nome"
-                />
+                <img :src="clube.escudo" :alt="clube.nome" />
               </v-avatar>
-              <span 
-                class="pl-2">{{ clube.nome }}
-              </span>
+              <router-link to="/corinthians">
+                <span class="pl-2">{{ clube.nome }} </span>
+              </router-link>
             </td>
             <td class="text-center">{{ clube.pontos }}</td>
           </tr>
@@ -49,12 +46,12 @@ export default {
     };
   },
   computed: {
-    clubesListaOrdenada(){
-        const listaOrdenada = this.clubesLista.slice(0).sort(
-            (a, b) => a.pontos > b.pontos ? -1 : 1
-        );
-        return listaOrdenada;
-    }
+    clubesListaOrdenada() {
+      const listaOrdenada = this.clubesLista
+        .slice(0)
+        .sort((a, b) => (a.pontos > b.pontos ? -1 : 1));
+      return listaOrdenada;
+    },
   },
   created() {
     fetch("https://hackthon-decola.firebaseio.com/clubes-lista.json")
@@ -67,4 +64,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.app-top-bar a {
+  text-decoration: none;
+  color: #fff;
+}
+</style>
